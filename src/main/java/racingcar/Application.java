@@ -69,11 +69,16 @@ public class Application {
         // 쉼표 기준으로 입력받기, 이름은 5자 이하만 가능
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
         String input = Console.readLine();
-        String[] names = input.split(",");
+        String[] names = input.split(",", -1);
 
         // 해시맵에 이름과 초기 위치 등록하기
-        for(String name : names)
+        for(String name : names){
+            if(name.isBlank()){
+                throw new IllegalArgumentException("연속된 구분자를 입력하였거나, 빈 요소가 존재합니다.");
+            }
             mapping(name);
+        }
+
 
         // 시도할 횟수 입력받기
         System.out.println("시도할 횟수는 몇 회인가요?");
