@@ -49,6 +49,30 @@ class ApplicationTest extends NsTest {
         );
     }
 
+    @Test
+    void 예외_테스트4() {
+        assertSimpleTest(() ->
+            assertThatThrownBy(() -> runException(",pobi,woni", "5"))
+                .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외테스트5(){
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("pobi,woni,", "5"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외테스트6(){
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("pobi,,,woni", "5"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
