@@ -80,8 +80,9 @@ public class Application {
         try{
             tryCount = Integer.parseInt(Console.readLine());
         } catch (Exception e){
-            throw new NumberFormatException("숫자가 아닙니다.");
+            throw new NumberFormatException("정수 입력 포맷이 일치하지 않습니다.");
         }
+        if(tryCount < 0) throw new IllegalArgumentException("음의 값은 입력할 수 없습니다.");
 
         // 경기 시작
         raceStart(names);
