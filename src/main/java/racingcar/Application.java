@@ -20,6 +20,14 @@ public class Application {
             carPosition.put(name, carPosition.get(name) + 1);
     }
 
+    private static void printTryPosition(String name){
+        System.out.print(name + " : ");
+        for(int i = 0; i < carPosition.get(name); i++)
+            System.out.print("-");
+        System.out.println();
+    }
+
+
     public static void main(String[] args) {
         // TODO: 프로그램 구현
 
@@ -41,10 +49,13 @@ public class Application {
         }
 
         // 안쪽 반복문은 각 차들의 전진여부를 수정하면 됨
+        System.out.println("실행 결과");
         for(int i = 0; i < tryCount; i++) {
             for (String name : names) {
                 moveCar(name);
+                printTryPosition(name);
             }
+            System.out.println();
         }
 
 
