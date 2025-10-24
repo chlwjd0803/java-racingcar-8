@@ -11,9 +11,14 @@ public class Application {
     private static void mapping(String name){
         if(!(name.length() < 5))
             throw new IllegalArgumentException("이름 글자수가 초과하였습니다.");
-        carPosition.put(name, 0);
+        carPosition.put(name, 0); // 모두 출발지점으로 초기화
     }
 
+    private static void moveCar(String name){
+        // 랜덤 0~9에서 4이상의 숫자가 나올경우 전진 else 정지
+        if(Randoms.pickNumberInRange(0, 9) >= 4)
+            carPosition.put(name, carPosition.get(name) + 1);
+    }
 
     public static void main(String[] args) {
         // TODO: 프로그램 구현
@@ -27,7 +32,6 @@ public class Application {
         for(String name : names)
             mapping(name);
 
-
         // 시도할 횟수 입력받기 (가장 바깥쪽 반복문)
         System.out.println("시도할 횟수는 몇 회인가요?");
         try{
@@ -36,13 +40,12 @@ public class Application {
             throw new NumberFormatException("숫자가 아닙니다.");
         }
 
-
-
         // 안쪽 반복문은 각 차들의 전진여부를 수정하면 됨
-
-
-
-        // 랜덤 0~9에서 4이상의 숫자가 나올경우 전진 else 정지
+        for(int i = 0; i < tryCount; i++) {
+            for (String name : names) {
+                moveCar(name);
+            }
+        }
 
 
         // 우승자가 여러명 가능, 쉼표 구분하여 출력
