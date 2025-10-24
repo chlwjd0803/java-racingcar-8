@@ -3,7 +3,6 @@ package racingcar;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.Test;
 
-import java.text.NumberFormat;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
@@ -58,7 +57,7 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 예외테스트5(){
+    void 예외_테스트5(){
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("pobi,woni,", "5"))
                         .isInstanceOf(IllegalArgumentException.class)
@@ -66,9 +65,17 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 예외테스트6(){
+    void 예외_테스트6(){
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("pobi,,,woni", "5"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트7(){
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("pobi,woni,woni", "5"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
