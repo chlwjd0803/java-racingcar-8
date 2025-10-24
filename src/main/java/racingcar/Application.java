@@ -38,6 +38,17 @@ public class Application {
         System.out.println();
     }
 
+    private static void raceStart(String[] names){
+        System.out.println("실행 결과");
+        for(int i = 0; i < tryCount; i++) {
+            for (String name : names) {
+                moveCar(name);
+                printTryPosition(name);
+            }
+            System.out.println();
+        }
+    }
+
     private static void setWinners(String[] names){
         for(String name : names){
             if(carPosition.get(name).equals(maxPosition))
@@ -60,10 +71,11 @@ public class Application {
         String input = Console.readLine();
         String[] names = input.split(",");
 
+        // 해시맵에 이름과 초기 위치 등록하기
         for(String name : names)
             mapping(name);
 
-        // 시도할 횟수 입력받기 (가장 바깥쪽 반복문)
+        // 시도할 횟수 입력받기
         System.out.println("시도할 횟수는 몇 회인가요?");
         try{
             tryCount = Integer.parseInt(Console.readLine());
@@ -71,17 +83,10 @@ public class Application {
             throw new NumberFormatException("숫자가 아닙니다.");
         }
 
-        // 안쪽 반복문은 각 차들의 전진여부를 수정하면 됨
-        System.out.println("실행 결과");
-        for(int i = 0; i < tryCount; i++) {
-            for (String name : names) {
-                moveCar(name);
-                printTryPosition(name);
-            }
-            System.out.println();
-        }
+        // 경기 시작
+        raceStart(names);
 
-        // 우승자가 여러명 가능, 쉼표 구분하여 출력
+        // 우승자 출력
         setWinners(names);
         printWinners();
 
