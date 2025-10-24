@@ -8,21 +8,31 @@ import camp.nextstep.edu.missionutils.Randoms;
 import camp.nextstep.edu.missionutils.Console;
 
 public class Application {
-    private static HashMap<String, Integer> carPosition = new HashMap<>();
-    private static Integer tryCount;
-    private static Integer maxPosition = 0;
-    private static List<String> winners = new ArrayList<>();
+    private HashMap<String, Integer> carPosition;
+    private Integer tryCount;
+    private Integer maxPosition;
+    private List<String> winners;
 
-    private static void mapping(String name){
-        if(!(name.length() < 5))
+    public Application(){
+        carPosition = new HashMap<>();
+        tryCount = 0;
+        maxPosition = 0;
+        winners = new ArrayList<>();
+    }
+
+    private void mapping(String name){
+        // 이름은 4글자 이하만 가능
+        if(!(name.length() <= 5))
             throw new IllegalArgumentException("이름 글자수가 초과하였습니다.");
+
+        // 자동차 이름은 중복되어선 안됨
         if(carPosition.containsKey(name))
             throw new IllegalArgumentException("중복된 자동차 이름이 존재합니다.");
         carPosition.put(name, 0); // 모두 출발지점으로 초기화
     }
 
-    private static void moveCar(String name){
-        // 랜덤 0~9에서 4이상의 숫자가 나올경우 전진 else 정지
+    private void moveCar(String name){
+        // 랜덤 0~9에서 4이상의 숫자가 나올경우 전진
         if(Randoms.pickNumberInRange(0, 9) >= 4)
             carPosition.put(name, carPosition.get(name) + 1);
 
@@ -31,7 +41,8 @@ public class Application {
             maxPosition = carPosition.get(name);
     }
 
-    private static void printTryPosition(String name){
+    // 중간과정 출력
+    private void printTryPosition(String name){
         System.out.print(name + " : ");
 
         for(int i = 0; i < carPosition.get(name); i++)
@@ -40,7 +51,7 @@ public class Application {
         System.out.println();
     }
 
-    private static void raceStart(String[] names){
+    private void raceStart(String[] names){
         System.out.println("실행 결과");
         for(int i = 0; i < tryCount; i++) {
             for (String name : names) {
@@ -51,14 +62,14 @@ public class Application {
         }
     }
 
-    private static void setWinners(String[] names){
+    private void setWinners(String[] names){
         for(String name : names){
             if(carPosition.get(name).equals(maxPosition))
                 winners.add(name);
         }
     }
 
-    private static void printWinners(){
+    private void printWinners(){
         System.out.print("최종 우승자 : ");
         System.out.print(winners.get(0));
         for(int i = 1; i < winners.size(); i++)
@@ -66,9 +77,9 @@ public class Application {
 
     }
 
-    public static void main(String[] args) {
+    public void run() {
 
-        // 쉼표 기준으로 입력받기, 이름은 5자 이하만 가능
+        // 쉼표 기준으로 입력받기
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
         String input = Console.readLine();
         String[] names = input.split(",", -1);
@@ -80,7 +91,6 @@ public class Application {
             }
             mapping(name);
         }
-
 
         // 시도할 횟수 입력받기
         System.out.println("시도할 횟수는 몇 회인가요?");
@@ -97,7 +107,9 @@ public class Application {
         // 우승자 출력
         setWinners(names);
         printWinners();
+    }
 
-        // 잘못된 값을 입력할 경우 IllegalArgumentException 발생
+    public static void main(String[] args){
+        new Application().run();
     }
 }
