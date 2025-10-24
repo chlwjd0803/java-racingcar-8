@@ -16,6 +16,8 @@ public class Application {
     private static void mapping(String name){
         if(!(name.length() < 5))
             throw new IllegalArgumentException("이름 글자수가 초과하였습니다.");
+        if(carPosition.containsKey(name))
+            throw new IllegalArgumentException("중복된 자동차 이름이 존재합니다.");
         carPosition.put(name, 0); // 모두 출발지점으로 초기화
     }
 
